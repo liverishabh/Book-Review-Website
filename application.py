@@ -175,3 +175,10 @@ def logout():
             return render_template("logout.html")
     except KeyError:
         return "<h1> Method Not Allowed </h1> <p> The method is not allowed for the requested URL.</p>"
+
+# @app.route("/api/<string:isbn>")
+# def api_call(isbn):
+#     book = Books.query.filter_by(isbn=isbn).first()
+#
+#     if book is None:
+#         return jsonify({"Error": "Invalid book ISBN"}), 422
