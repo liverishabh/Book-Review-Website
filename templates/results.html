@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Results
+{% endblock %}
+
+{% block content %}
+<div class="container-md p-4 col-xl-8">
+  <h2> Search Results </h2>
+  <div class="container-fluid pt-4">
+  {% if books|length > 0 %}
+    <table class="table table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Year</th>
+          <th>ISBN</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for book in books %}
+          <tr>
+            <td> <a href="{{ url_for('book', book_id=book.id) }}"> {{ book.title }} </a> </td>
+            <td> {{ book.author }} </td>
+            <td> {{ book.year }} </td>
+            <td> {{ book.isbn }} </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h5> No Books Found. Please <a href="{{ url_for('search')}}">search </a>again! </h5>
+    {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

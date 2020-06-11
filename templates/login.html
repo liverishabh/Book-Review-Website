@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block content %}
+<div class= "container-sm p-5 col-lg-6">
+  <div class="text-center" style="margin-bottom:0">
+    <h1> Welcome to Book Lover </h1>
+    <p> Here, you can search our database of 5000 books, read reviews by readers like you, and add your own reviews.
+      <br> To get started, please log in or register. </p>
+  </div>
+  <form action="{{ url_for('search') }}" method="post" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="username">Username:</label>
+      <input type="text" class="form-control" placeholder="Enter username" id="username" name="username" required>
+      <div class="valid-feedback"></div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" class="form-control" placeholder="Enter password" id="password" name="password" required>
+      <div class="valid-feedback"></div>
+      <div class="invalid-feedback">Please fill out this field.</div>
+    </div>
+    <div class="form-group form-check">
+      <label class="form-check-label">
+        <input class="form-check-input" type="checkbox"> Remember me
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+<script>
+// Disable form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Get the forms we want to add validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Error
+{% endblock %}
+
+{% block content %}
+  <!-- <div class="alert alert-danger container" role="alert">
+    <h4 class="alert-heading"> Oops! </h4>
+    <p> {{ message }} </p>
+  </div> -->
+  <div class="container pt-5">
+    {% if login %}
+      <h2 class="text-danger"> Login Failed! </h2>
+      <p> Your {{ message }} was incorrect. Please <a href="{{ url_for('login') }}"> login </a> again. </p>
+    {% else %}
+      <h2 class="text-danger"> Registration Failed! </h2>
+      <p> {{ message }} Please <a href= "{{ url_for('register') }}" > register </a> with a different username. </p>
+    {% endif %}
+  </div>
+{% endblock %}

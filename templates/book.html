@@ -1,0 +1,105 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Book Info
+{% endblock %}
+
+{% block content %}
+
+<div class="container pt-4">
+  <div class="row">
+    <div class="col-sm-3 d-flex justify-content-center">
+       <img src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg">
+    </div>
+    <div class="col-sm-6 text-center" >
+      <h1 class=> <strong> {{ book.title }} </strong> </h1>
+      <p> Author: {{ book.author }} <br>
+      Publication year: {{ book.year }} <br>
+      ISBN: {{ book.isbn }} <br>
+      Average Rating*: {{ review.average_rating }}<br>
+      Number of Ratings*: {{ review.work_ratings_count }} </p>
+      <p>*Rating information provided by <a href="https://www.goodreads.com/api "> Goodreads API </a>.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <h2> Reviews </h2>
+      <table class="table">
+        <tbody>
+          {% for rows,username in reviews|zip(username) %}
+          <tr>
+            <td> <code>{{username}}</code> rated this book {{ rows.rating}} out of 5 <div class="container pt-2"> {{ rows.comment }} </div> </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td> No Reviews available for this book. Please consider giving one. </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-5">
+      <div class="container p-4" style="background-color:#80ffdb">
+        <form action="{{ url_for('add_review', book_id=book.id) }}" method="post" class="needs-validation" novalidate>
+          <legend style="font-size:16px"> Give your Rating: </legend>
+          <div class="custom-control-inline custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="1" name="rating" value="1" required>
+            <label class="custom-control-label" for="1"> 1 </label>
+          </div>
+          <div class="custom-control-inline custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="2" name="rating" value="2" required>
+            <label class="custom-control-label" for="2"> 2 </label>
+          </div>
+          <div class="custom-control-inline custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="3" name="rating" value="3" required>
+            <label class="custom-control-label" for="3"> 3 </label>
+          </div>
+          <div class="custom-control-inline custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="4" name="rating" value="4" required>
+            <label class="custom-control-label" for="4"> 4 </label>
+          </div>
+          <div class="custom-control-inline custom-control custom-radio">
+            <input type="radio" class="custom-control-input" id="5" name="rating" value="5" required>
+            <label class="custom-control-label" for="5"> 5 </label>
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="comment">Say something about the book:</label>
+            <textarea class="form-control" id="comment" name="comment" required></textarea>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+
+          <div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// Disable form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Get the forms we want to add validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+</script>
+
+{% endblock %}

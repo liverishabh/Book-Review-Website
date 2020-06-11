@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Book Info
+{% endblock %}
+
+{% block content %}
+  <div class="container pt-5">
+    {% if review %}
+      <h2 class="text-success"> Thank you! </h2>
+        <p> Your review has been submitted successfully. Please return to the
+        <a href="{{ url_for('book', book_id=book_id)}}"> book detail page </a> to see it. </p>
+    {% else %}
+      <h2 class="text-danger"> Review not submitted! </h2>
+        <p> You have already posted a review for this book. Please return to the
+        <a href="{{ url_for('book', book_id=book_id)}}"> book detail page </a> to see it. </p>
+    {% endif %}
+  </div>
+
+{% endblock %}
